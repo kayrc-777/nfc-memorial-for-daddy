@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react';
 
 export default function Home() {
-  const videoUrl = 'https://vhzepgxvplwatq5w.public.blob.vercel-storage.com/IMG_1977.mov'; // ← Your Blob URL
+  const videoUrl = 'https://blob.vercel-storage.com/videos/memory.mp4'; // ← YOUR BLOB URL
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true);
 
@@ -38,11 +38,15 @@ export default function Home() {
         onClick={toggleMute}
         className="absolute top-4 right-4 z-20 bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-3 py-1.5 rounded-full text-sm font-medium transition-all backdrop-blur-sm"
       >
-        {isMuted ? '🔇 Tap to unmute' : '🔊 Muted'}
+        {isMuted ? 'Tap to unmute' : 'Muted'}
       </button>
 
-      {/* Memorial Box */}
-      <div className="relative z-10 bg-transparent p-6 rounded-3xl ring-1 ring-white/50 shadow-lg">
+      {/* Memorial Box — THIN WHITE BORDER */}
+      <div className="relative z-10 bg-transparent p-6 rounded-3xl ring-1 ring-white/50 shadow-lg w-[50vw] max-w-lg text-center">
+        <h1 className="text-2xl font-bold text-white mb-6">
+          In Loving Memory of<br />
+          <span className="text-blue-400">Angel Antonio Cuevas</span>
+        </h1>
 
         <div className="relative w-full pt-[75%] rounded-2xl overflow-hidden shadow-inner">
           <video
@@ -57,9 +61,9 @@ export default function Home() {
           />
         </div>
 
-      {/* <p className="mt-4 text-slate-700 font-medium text-sm">
+        <p className="mt-4 text-white/80 font-medium text-sm">
           Scanned with NFC
-        </p>*/}
+        </p>
       </div>
     </main>
   );
