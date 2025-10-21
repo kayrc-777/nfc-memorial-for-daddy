@@ -42,11 +42,7 @@ export default function Home() {
       </button>
 
       {/* Memorial Box */}
-      <div className="relative z-10 bg-white bg-opacity-95 p-8 rounded-3xl shadow-2xl ring-2 ring-blue-900 w-[50vw] max-w-lg text-center">
-        <h1 className="text-2xl font-bold text-slate-900 mb-6">
-          In Loving Memory of<br />
-          <span className="text-blue-900">Angel Antonio Cuevas</span>
-        </h1>
+      <div className="relative z-10 bg-transparent p-6 rounded-3xl ring-1 ring-white/50 shadow-lg">
 
         <div className="relative w-full pt-[75%] rounded-2xl overflow-hidden shadow-inner">
           <video
