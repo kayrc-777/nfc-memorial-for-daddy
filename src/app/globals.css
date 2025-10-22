@@ -1,6 +1,6 @@
-@tailwind base;
+{/*@tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities;*/}
 
 @keyframes slow-float {
     0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
@@ -11,3 +11,4 @@
   .animate-slow-float {
     animation: slow-float linear infinite;
   }
+
