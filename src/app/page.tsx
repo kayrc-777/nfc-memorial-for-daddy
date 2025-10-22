@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react';
 
 export default function Home() {
-  const videoUrl = 'https://vhzepgxvplwatq5w.public.blob.vercel-storage.com/IMG_1977.mov'; // ← YOUR BLOB URL
+  const videoUrl = 'https://blob.vercel-storage.com/videos/memory.mp4';
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true);
 
@@ -15,22 +15,31 @@ export default function Home() {
   };
 
   return (
-    <main className="relative min-h-screen bg-slate-950 flex items-center justify-center p-4">
-      {/* Floating Orbs */}
-      <div className="absolute inset-0 overflow-hidden">
-        {[...Array(5)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute rounded-full bg-blue-900 opacity-20 animate-float"
-            style={{
-              width: '60px',
-              height: '60px',
-              top: `${20 + i * 15}%`,
-              left: `${10 + i * 15}%`,
-              animationDelay: `${i}s`,
-            }}
-          />
-        ))}
+    <main className="relative min-h-screen bg-slate-950 flex items-center justify-center p-4 md:p-8 overflow-hidden">
+      {/* SLOW, SCATTERED ORBS */}
+      <div className="absolute inset-0">
+        {[...Array(8)].map((_, i) => {
+          const size = Math.random() * 80 + 40; // 40px to 120px
+          const duration = Math.random() * 30 + 40; // 40s to 70s
+          const delay = Math.random() * 20;
+          const top = Math.random() * 100;
+          const left = Math.random() * 100;
+
+          return (
+            <div
+              key={i}
+              className="absolute rounded-full bg-blue-900 opacity-15 animate-slow-float"
+              style={{
+                width: `${size}px`,
+                height: `${size}px`,
+                top: `${top}%`,
+                left: `${left}%`,
+                animationDuration: `${duration}s`,
+                animationDelay: `${delay}s`,
+              }}
+            />
+          );
+        })}
       </div>
 
       {/* Unmute Button */}
@@ -41,8 +50,8 @@ export default function Home() {
         {isMuted ? 'Tap to unmute' : 'Muted'}
       </button>
 
-      {/* Memorial Box — THIN WHITE BORDER */}
-      <div className="relative z-10 bg-transparent p-6 rounded-3xl ring-1 ring-white/50 shadow-lg w-[50vw] max-w-lg text-center">
+      {/* VIDEO ONLY — NO TEXT */}
+      <div className="relative z-10 w-full max-w-md md:max-w-lg">
         <div className="relative w-full pt-[75%] rounded-2xl overflow-hidden shadow-inner">
           <video
             ref={videoRef}
