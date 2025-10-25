@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react';
 
 export default function Home() {
-  const videoUrl = 'https://blob.vercel-storage.com/videos/memory.mp4';
+  const videoUrl = 'https://vhzepgxvplwatq5w.public.blob.vercel-storage.com/IMG_1977.mov';
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMuted, setIsMuted] = useState(true);
 
