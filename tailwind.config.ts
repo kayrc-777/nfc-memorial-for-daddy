@@ -7,12 +7,12 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        khaki: {
+        /* khaki: {
           300: '#E4D5B7',
           500: '#D2B48C',
           700: '#8B7D6B',
           800: '#6B5D4D',
-        },
+        }, */
       },
       animation: {
         float: 'float 15s ease-in-out infinite',
