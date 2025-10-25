@@ -47,7 +47,7 @@ export default function Home() {
         onClick={toggleMute}
         className="absolute top-4 right-4 z-20 bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-3 py-1.5 rounded-full text-sm font-medium transition-all backdrop-blur-sm"
       >
-        {isMuted ? '🔊 Sound On' : '🔇 Sound Off'}
+        {isMuted ? '🔇 Sound Off' : '🔊 Sound On'}
       </button>
 
       {/* VIDEO ONLY — NO TEXT */}
