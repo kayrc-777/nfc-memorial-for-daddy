@@ -1,12 +1,15 @@
 /* import { NextResponse } from 'next/server';
-import { getSignedUrl } from '@vercel/blob';
+import { head } from '@vercel/blob';
+import { put } from "@vercel/blob";
+
+const { url } = await put('articles/blob.txt', 'Hello World!', { access: 'public' });
 
 export async function GET() {
   try {
     // Replace 'your-store-handle' with the actual handle from Vercel dashboard
     // Example: 'my-app/default' or 'my-app/videos'
-    const { url } = await getSignedUrl('videos/memory.mp4', {
-      store: 'nfc-memorial-for-daddy/nfc-memorial-for-daddy-blob', // <--- Enter the store handle here
+    const { url } = await head('video.url', {
+     store: 'nfc-memorial-for-daddy/nfc-memorial-for-daddy-blob', // <--- Enter the store handle here
       mode: 'public-read',
       expiresIn: 3600, // 1 hour
     });
@@ -16,39 +19,26 @@ export async function GET() {
     console.error('Error generating signed URL:', error);
     return NextResponse.json({ error: 'Failed to generate video URL' }, { status: 500 });
   }
-} */
+} */ 
 
   import { NextResponse } from 'next/server';
-  import { put, del } from '@vercel/blob'; // Use actual exports: put for upload, del for delete; no getSignedUrl
+  import { head } from '@vercel/blob';
   
   export async function GET() {
     try {
-      // Example: Assume you're generating a URL for an existing blob at 'path/to/video.mp4'
-      // For upload (if needed in this route), use put() like this:
-      // const blob = await put('path/to/video.mp4', fileBuffer, { access: 'private' }); // or 'public'
+      // Replace with your blob's pathname (e.g., 'nfc-memorial-for-daddy-blob/video.mp4')
+      const pathname = 'https://vhzepgxvplwatq5w.public.blob.vercel-storage.com/IMG_1977.mov'; // Update with actual video path
   
-      // To generate a signed URL for private access (expires in 1 hour):
-      const pathname = 'nfc-memorial-for-daddy/nfc-memorial-for-daddy-blob'; // Replace with your blob's pathname
-      const expiresInSeconds = 3600; // 1 hour; adjust as needed
-      const token = generateToken(); // Implement your token generation (see below)
+      // Get blob metadata
+      const blob = await head(pathname);
+      if (!blob) {
+        return NextResponse.json({ error: 'Video not found' }, { status: 404 });
+      }
   
-      const signedUrl = `https://blob.vercel-storage.com/${pathname}?token=${token}&expires=${Date.now() + expiresInSeconds * 1000}`;
-  
-      return NextResponse.json({ url: signedUrl });
+      // Return the public URL
+      return NextResponse.json({ videoUrl: blob.url });
     } catch (error) {
-      console.error('Error generating video URL:', error);
-      return NextResponse.json({ error: 'Failed to generate URL' }, { status: 500 });
+      console.error('Error fetching video URL:', error);
+      return NextResponse.json({ error: 'Failed to fetch video URL' }, { status: 500 });
     }
-  }
-  
-  // Helper: Generate a secure token (use Vercel auth or your own JWT/crypto)
-  function generateToken() {
-    // Option 1: Use Vercel-specific token from env (if using Vercel Auth)
-    // return process.env.VERCEL_AUTH_TOKEN || '';
-  
-    // Option 2: Simple HMAC-based token (for demo; use crypto.subtle in prod for security)
-    const crypto = await import('crypto');
-    const secret = process.env.BLOB_SIGNING_SECRET || 'your-secret-key'; // Set this in Vercel env vars
-    const data = `pathname=${pathname}&expires=${Date.now() + 3600 * 1000}`;
-    return crypto.createHmac('sha256', secret).update(data).digest('hex');
   }
